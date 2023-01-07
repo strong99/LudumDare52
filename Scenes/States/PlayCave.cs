@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 
 class Wave
 {
@@ -28,6 +29,7 @@ public partial class PlayCave : Node2D
     private HashSet<Wave> _waves = new()
     {
         new Wave(1000, 40000, true, "MerchantA", "MerchantA", "MerchantA"),
+        new Wave(1000, 20000, false, "AdventurorA"),
         //new Wave(1000, 20000, false, "MerchantA", "MerchantB"),
         //new Wave(1200, 60000, true, "MerchantA", "MerchantB"),
         //new Wave(15000, 17000, false, "MerchantA", "PriestA"),
@@ -56,9 +58,40 @@ public partial class PlayCave : Node2D
             var tileCoords = tileMap.LocalToMap(ToLocal(mousePosition));
             var tileId = tileMap.GetCellSourceId(0, tileCoords);
             var tile = tileMap.GetCellTileData(0, tileCoords);
-            if (tile.GetNavigationPolygon(0) != null)
+            if (tile?.GetNavigationPolygon(0) != null)
             {
                 _player.GoTo(mousePosition);
+            }
+        }
+        var tryControl = inputEvent.IsActionPressed("Control");
+        var tryHarvest = inputEvent.IsActionPressed("Harvest");
+        if (tryControl || tryHarvest) 
+        {
+            //find nearest character
+            var children = GetChildren();
+            foreach(var child in children)
+            {
+                if (child is Character2D character && !character.IsDead && character.Position.DistanceSquaredTo(_player.Position) < 200)
+                {
+                    if (tryControl)
+                    {
+                        character.Controlled += 0.2;
+                        if (character.Controlled >= 1)
+                        {
+                            character.Goal = null;
+                        }
+                    }
+                    else if (tryHarvest)
+                    {
+                        character.Damage(2);
+                        if (character.IsDead)
+                        {
+                            Debug.WriteLine("Harvested!");
+                        }
+                    }
+
+                    break;
+                }
             }
         }
         base._Input(inputEvent);
@@ -76,6 +109,18 @@ public partial class PlayCave : Node2D
     }
 
     private Random _random = new();
+
+    public Double Alertness { get; set; }
+    public HashSet<Vector2> InvestigationSpots { get; } = new();
+
+    public void AddInvestigationPoints(params Vector2[] points)
+    {
+        foreach (var point in points)
+            InvestigationSpots.Add(point);
+
+        if (InvestigationSpots.Count > 5)
+            InvestigationSpots.Remove(InvestigationSpots.First());
+    }
 
     private void TryNextSpawn(Double previousTime, Double currentTime)
     {
@@ -102,6 +147,13 @@ public partial class PlayCave : Node2D
                             new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)) { Optional = true },
                             new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)) { Optional = true }
                     ));
+                    // Add adventuror interest spots
+                    if (InvestigationSpots.Count > 0 && Alertness > 0.5f) 
+                    {
+                        var g = (group.Goals.First() as GoalGroup);
+                        foreach (var i in InvestigationSpots)
+                            g.Add(new GoToLocationGoal("investigate", i) { Optional = true });
+                    }
                     group.Add(new GoalGroup("PrepareCamp").Add(
                             new ConstructGoal("SetupCamp", campSite.Position, "Tent", 70),
                             new CollectItemGoal("CollectWater", GetRandom(poiNodes.Where(p => p.Is("Water"))).Position),
@@ -109,10 +161,11 @@ public partial class PlayCave : Node2D
                             new CollectItemGoal("CollectWood", GetRandom(poiNodes.Where(p => p.Is("Wood"))).Position))
                     );
                     group.Add(new GoalGroup("Sleep").Add(
-                        new HideGoal("sleep", poiNodes.First().Position, 5000),
-                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true },
-                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true },
-                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true }
+                        new HideGoal("sleep", campSite.Position, 5000),
+                        new IdleGoal("guard", poiNodes.First().Position, 5000),
+                        new HideGoal("sleep", campSite.Position, 5000) { Optional = true },
+                        new HideGoal("sleep", campSite.Position, 5000) { Optional = true },
+                        new HideGoal("sleep", campSite.Position, 5000) { Optional = true }
                     ));
                     group.Add(new DeconstructGoal("PrepareDeparture", campSite.Position, "Tent"));
                 }

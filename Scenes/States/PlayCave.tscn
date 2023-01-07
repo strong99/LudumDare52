@@ -79,7 +79,7 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(65546, 4, 65536)
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
-position = Vector2(307, 214)
+position = Vector2(284, 207)
 
 [node name="CampLocation" type="Node2D" parent="." groups=["POIs"]]
 position = Vector2(-356, -225)
@@ -87,7 +87,7 @@ script = ExtResource("6_bu2w0")
 Tags = ["Campsite"]
 
 [node name="RoadNode" type="Node2D" parent="." groups=["POIs"]]
-position = Vector2(-440, -165)
+position = Vector2(-447, -156)
 script = ExtResource("6_bu2w0")
 Tags = ["Intermediate"]
 
@@ -97,12 +97,12 @@ script = ExtResource("6_bu2w0")
 Tags = ["Intermediate"]
 
 [node name="WoodLocation" type="Node2D" parent="." groups=["POIs"]]
-position = Vector2(-90, -118)
+position = Vector2(-41, -122)
 script = ExtResource("6_bu2w0")
 Tags = ["Wood"]
 
 [node name="WaterLocation" type="Node2D" parent="." groups=["POIs"]]
-position = Vector2(-314, -282)
+position = Vector2(-315, -282)
 script = ExtResource("6_bu2w0")
 Tags = ["Water"]
 
@@ -112,10 +112,11 @@ script = ExtResource("6_bu2w0")
 Tags = ["BerryBush"]
 
 [node name="RoadEntranceEast2" type="Node2D" parent="." groups=["Spawn"]]
-position = Vector2(-562, -91)
+position = Vector2(-597, -116)
 
 [node name="RoadEntranceEast1" type="Node2D" parent="." groups=["Spawn"]]
-position = Vector2(-139, -234)
+position = Vector2(-183, -248)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-65, -4)
 current = true

@@ -1,9 +1,13 @@
 using Godot;
 using System;
 
-public partial class Player : Node2D
+public partial class Player : Node2D, Interactable
 {
     private NavigationAgent2D _agent;
+
+    public Boolean IsDead { get => HealthPoints <= 0; }
+
+    public Double HealthPoints { get; set; } = 10;
 
     public override void _Ready()
     {
@@ -19,14 +23,22 @@ public partial class Player : Node2D
 
     public override void _Process(System.Double delta)
     {
+        if (IsDead)
+            return;
+
         base._Process(delta);
 
         if (!_agent.IsNavigationFinished())
         {
             var next = _agent.GetNextLocation();
 
-            var speed = 40.0f;
+            var speed = 120.0f;
             Position = Position.MoveToward(next, (Single)delta * speed);
         }
+    }
+
+    public void Damage(Double attack)
+    {
+        HealthPoints -= attack;
     }
 }
