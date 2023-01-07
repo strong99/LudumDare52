@@ -1,7 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://de3b0qvpto63y"]
+[gd_scene load_steps=37 format=3 uid="uid://de3b0qvpto63y"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Character2D.cs" id="1_220hp"]
 [ext_resource type="Texture2D" uid="uid://do07plqqpmsai" path="res://Scenes/Objects/adventurorA.png" id="2_dd08p"]
+[ext_resource type="AudioStream" uid="uid://dymog662v3b2l" path="res://Assets/Audio/damaging.wav" id="3_61021"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bjok"]
 atlas = ExtResource("2_dd08p")
@@ -225,3 +226,6 @@ animation = &"west_attack"
 offset = Vector2(2, -93)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_61021")

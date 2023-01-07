@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vfvgfk0jkmjj"]
+[gd_scene load_steps=16 format=3 uid="uid://vfvgfk0jkmjj"]
 
 [ext_resource type="Script" path="res://Scenes/States/PlayCave.cs" id="1_mnyt0"]
 [ext_resource type="TileSet" uid="uid://ceuv2re16q52c" path="res://Scenes/States/Tiles128x64.tres" id="2_kemi4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scenes/States/WorldAlertnessbarValue.cs" id="11_8jwh6"]
 [ext_resource type="Texture2D" uid="uid://cm2rcphb58s4a" path="res://Assets/Icons/iconFight-01.png" id="11_lslmu"]
 [ext_resource type="Texture2D" uid="uid://c0kosnup16n4o" path="res://Assets/Icons/iconMindControl-01.png" id="12_1gxla"]
+[ext_resource type="AudioStream" uid="uid://ffsylff15teo" path="res://Assets/Audio/BackgroundPlay.mp3" id="14_y3bdl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_61umi"]
 shader = ExtResource("8_585e6")
@@ -315,3 +316,7 @@ position = Vector2(809, 764)
 scale = Vector2(3.21111, 3.21111)
 texture = ExtResource("10_srfsd")
 offset = Vector2(-1.61868, -43.0576)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_y3bdl")
+autoplay = true

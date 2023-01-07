@@ -1,9 +1,5 @@
 using Godot;
-using Godot.Collections;
 using System;
-using System.Collections.Generic;
-using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
 
 public partial class Player : Node2D, Interactable
 {

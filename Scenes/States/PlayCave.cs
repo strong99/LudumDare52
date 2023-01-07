@@ -102,6 +102,7 @@ public partial class PlayCave : Node2D
                             character.Goal = null;
                             _player.HungerPoints -= 0.1;
                         }
+                        _player.GetNode<AudioStreamPlayer2D>("ControlSound").Play();
                     }
                     else if (tryHarvest)
                     {
@@ -112,6 +113,7 @@ public partial class PlayCave : Node2D
                             _player.HealthPoints += 0.1;
                             Debug.WriteLine("Harvested!");
                         }
+                        _player.GetNode<AudioStreamPlayer2D>("AttackSound").Play();
                     }
 
                     break;

@@ -68,7 +68,6 @@ texture_region_size = Vector2i(132, 68)
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h31kc"]
 resource_name = "Tent"
 scenes/1/scene = ExtResource("3_t3eak")
-scenes/1/display_placeholder = ExtResource("3_t3eak")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_775uu"]
 texture = ExtResource("4_bvxkn")

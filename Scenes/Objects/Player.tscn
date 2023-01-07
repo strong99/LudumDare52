@@ -1,7 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://kjdqccfl1yee"]
+[gd_scene load_steps=38 format=3 uid="uid://kjdqccfl1yee"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Player.cs" id="1_ls2th"]
 [ext_resource type="Texture2D" uid="uid://dufxpirq30di3" path="res://Scenes/Objects/ghost.png" id="2_uttnm"]
+[ext_resource type="AudioStream" uid="uid://dymog662v3b2l" path="res://Assets/Audio/damaging.wav" id="3_84muc"]
+[ext_resource type="AudioStream" uid="uid://ljmbph4peel7" path="res://Assets/Audio/mindbreaking.wav" id="4_yn2cj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_np51x"]
 atlas = ExtResource("2_uttnm")
@@ -225,3 +227,9 @@ animation = &"west_control"
 offset = Vector2(-0.666667, -59.6667)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_84muc")
+
+[node name="ControlSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yn2cj")

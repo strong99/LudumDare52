@@ -290,6 +290,7 @@ public partial class Character2D : Node2D, Interactable
                 {
                     target.Damage(Attack);
                     _lastAttack = 0;
+                    GetNode<AudioStreamPlayer2D>("AttackSound").Play();
                 }
             }
             else
