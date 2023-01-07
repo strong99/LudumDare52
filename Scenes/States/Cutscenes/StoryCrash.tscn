@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://Scenes/States/Cutscenes/StoryCrash.cs" id="1_m1g1p"]
+[ext_resource type="Texture2D" uid="uid://c5o7kmkx3fl2i" path="res://Assets/Cutscenes/planet.svg" id="2_d2adc"]
+[ext_resource type="Texture2D" uid="uid://mra453olixhp" path="res://Assets/Cutscenes/crash.svg" id="3_yo8rk"]
+[ext_resource type="Texture2D" uid="uid://cvrew2fovnad0" path="res://Assets/Cutscenes/moon.png" id="4_el7rk"]
+[ext_resource type="Texture2D" uid="uid://ciuer0486hh5i" path="res://Assets/Cutscenes/sun.svg" id="5_ljw3a"]
+[ext_resource type="Texture2D" uid="uid://d1qw4r8jreeop" path="res://Assets/Cutscenes/ship.svg" id="6_mgnvu"]
+ion = Vector2(419, 354)
+texture = ExtResource("3_yo8rk")
+offset = Vector2(38, -4)
+
+[node name="Moon" type="Sprite2D" parent="."]
+position = Vector2(639, 251)
+texture = ExtResource("4_el7rk")
+
+[node name="Sun" type="Sprite2D" parent="."]
+position = Vector2(136, 128)
+texture = ExtResource("5_ljw3a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qnte0")
+}
+
+[node name="ShipPath2D" type="Path2D" parent="."]
+position = Vector2(-3, 0)
+curve = SubResource("Curve2D_5rq6f")
+
+[node name="ShipPathFollow2D" type="PathFollow2D" parent="ShipPath2D"]
+position = Vector2(428, 347)
+rotation = 2.68746
+progress = 990.001
+
+[node name="Ship" type="Sprite2D" parent="ShipPath2D/ShipPathFollow2D"]
+position = Vector2(5, -1)
+texture = ExtResource("6_mgnvu")
+offset = Vector2(1, 0)

@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://Scenes/States/Cutscenes/StoryFound.cs" id="1_2okk4"]
+[ext_resource type="Texture2D" uid="uid://dcjwi3fxon8ba" path="res://Assets/Cutscenes/tree.svg" id="2_o5wsc"]
+[ext_resource type="Texture2D" uid="uid://cpfy7ifr1dbbv" path="res://Assets/Cutscenes/companion.svg" id="3_iw33p"]
+[ext_resource type="Texture2D" uid="uid://c4ytie44blagx" path="res://Assets/Cutscenes/collapsedCave.svg" id="4_pdvmo"]
+[ext_resource type="Texture2D" uid="uid://bxohwcavla3a6" path="res://Assets/Cutscenes/companionGlow.svg" id="5_gq5j4"]
+[ext_resource type="Texture2D" uid="uid://bvp5tfdn8h472" path="res://Assets/Cutscenes/handGlow.svg" id="6_03q7j"]
+edFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Companion:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5.7, 5.8),
+"transitions": PackedFloat32Array(1, 1, 256),
+"update": 0,
+"values": [Vector2(451, 568), Vector2(451, 568), Vector2(741, 730)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Companion:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5.7, 5.8),
+"transitions": PackedFloat32Array(1, 1, 256),
+"update": 0,
+"values": [Vector2(0.440301, 0.440301), Vector2(0.440301, 0.440301), Vector2(0.8, 0.8)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Companion:z_index")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 5.7, 5.8),
+"transitions": PackedFloat32Array(1, 1, 256),
+"update": 1,
+"values": [0, 0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0t1bt"]
+_data = {
+"Play": SubResource("Animation_ob5sp")
+}
+
+[node name="StoryFound" type="Node2D"]
+script = ExtResource("1_2okk4")
+
+[node name="Tree1" type="Sprite2D" parent="."]
+position = Vector2(313, 560)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_o5wsc")
+offset = Vector2(2.15753, -153.702)
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(559, 604)
+scale = Vector2(1.03732, 1.03732)
+texture = ExtResource("2_o5wsc")
+offset = Vector2(2.15753, -153.702)
+
+[node name="Tree3" type="Sprite2D" parent="."]
+position = Vector2(445, 617)
+scale = Vector2(1.07604, 1.07604)
+texture = ExtResource("2_o5wsc")
+offset = Vector2(2.15753, -153.702)
+
+[node name="Companion" type="Sprite2D" parent="."]
+position = Vector2(451, 568)
+scale = Vector2(0.440301, 0.440301)
+texture = ExtResource("5_gq5j4")
+offset = Vector2(-34.7067, -324.508)
+
+[node name="CollapsedCave" type="Sprite2D" parent="."]
+position = Vector2(642, 398)
+texture = ExtResource("4_pdvmo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0t1bt")
+}
+
+[node name="HandGlow" type="Sprite2D" parent="."]
+modulate = Color(0.75, 0.75, 0.75, 1)
+z_index = 2
+position = Vector2(897, 628)
+texture = ExtResource("6_03q7j")

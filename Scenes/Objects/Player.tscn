@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://kjdqccfl1yee"]
+
+[ext_resource type="Texture2D" uid="uid://dcjwi3fxon8ba" path="res://Assets/Cutscenes/tree.svg" id="1_37cql"]
+
+[node name="Player" type="Node2D"]
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(7.62939e-06, -2)
+scale = Vector2(0.22381, 0.223459)
+texture = ExtResource("1_37cql")
+offset = Vector2(2, -159)

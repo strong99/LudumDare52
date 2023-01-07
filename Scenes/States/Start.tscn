@@ -1,0 +1,139 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkgtnuu7hkcch"]
+
+[ext_resource type="Texture2D" uid="uid://dle6p4tl4idfx" path="res://Assets/Cutscenes/wakeup.png" id="1_mo7d4"]
+[ext_resource type="Script" path="res://Scenes/States/Start.cs" id="1_rtpyw"]
+
+[sub_resource type="Animation" id="Animation_gq4p2"]
+resource_name = "Introduction"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AspectRatioContainer2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(3, 3)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnStartGame"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7k0vm"]
+resource_name = "Ready"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AspectRatioContainer2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1kal2"]
+_data = {
+"Introduction": SubResource("Animation_gq4p2"),
+"Ready": SubResource("Animation_7k0vm")
+}
+
+[node name="Start" type="Node2D"]
+script = ExtResource("1_rtpyw")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+clip_contents = true
+offset_right = 1280.0
+offset_bottom = 1024.0
+texture = ExtResource("1_mo7d4")
+stretch_mode = 6
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 256.0
+offset_right = 232.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer2"]
+offset_top = 134.0
+offset_right = 200.0
+offset_bottom = 200.0
+size_flags_vertical = 8
+
+[node name="btnStart" type="Button" parent="AspectRatioContainer2/VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 31.0
+text = "Wake up"
+
+[node name="btnQuit" type="Button" parent="AspectRatioContainer2/VBoxContainer"]
+offset_top = 35.0
+offset_right = 200.0
+offset_bottom = 66.0
+text = "Quit	"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1kal2")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(636, 362)
+current = true
+
+[connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnStart" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnQuit" to="." method="OnQuitButtonPressed"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Scenes/States/Cutscenes/StoryCollapsedCave.cs" id="1_drb7o"]
+[ext_resource type="Texture2D" uid="uid://c4ytie44blagx" path="res://Assets/Cutscenes/collapsedCave.svg" id="1_mfbig"]
+[ext_resource type="Texture2D" uid="uid://ciuer0486hh5i" path="res://Assets/Cutscenes/sun.svg" id="2_rk56d"]
+[ext_resource type="Texture2D" uid="uid://dcjwi3fxon8ba" path="res://Assets/Cutscenes/tree.svg" id="3_u2jnk"]
+, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1.07604, 1.07604)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_onlux"]
+_data = {
+"Play": SubResource("Animation_ql0bp")
+}
+
+[node name="StoryCollapsedCave" type="Node2D"]
+script = ExtResource("1_drb7o")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-37, 559)
+curve = SubResource("Curve2D_7yhhw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-55, 252)
+rotation = -1.19202
+
+[node name="Sun" type="Sprite2D" parent="Path2D/PathFollow2D"]
+texture = ExtResource("2_rk56d")
+
+[node name="Tree1" type="Sprite2D" parent="."]
+position = Vector2(313, 560)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_u2jnk")
+offset = Vector2(2.15753, -153.702)
+
+[node name="Tree2" type="Sprite2D" parent="."]
+position = Vector2(559, 604)
+scale = Vector2(1.03732, 1.03732)
+texture = ExtResource("3_u2jnk")
+offset = Vector2(2.15753, -153.702)
+
+[node name="Tree3" type="Sprite2D" parent="."]
+position = Vector2(445, 617)
+scale = Vector2(1.07604, 1.07604)
+texture = ExtResource("3_u2jnk")
+offset = Vector2(2.15753, -153.702)
+
+[node name="CollapsedCave" type="Sprite2D" parent="."]
+position = Vector2(639, 393)
+texture = ExtResource("1_mfbig")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_onlux")
+}
