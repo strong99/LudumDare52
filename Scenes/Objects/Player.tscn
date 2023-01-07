@@ -218,10 +218,10 @@ animations = [{
 script = ExtResource("1_ls2th")
 
 [node name="Skin" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -1.90735e-06)
 scale = Vector2(0.75, 0.75)
 frames = SubResource("SpriteFrames_8auid")
 animation = &"west_control"
-offset = Vector2(2, -93)
+offset = Vector2(-0.666667, -59.6667)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

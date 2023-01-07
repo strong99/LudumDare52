@@ -54,6 +54,7 @@ public partial class PlayCave : Node2D
         var companion = ResourceLoader.Load<PackedScene>("res://Scenes/Objects/AdventurorA.tscn").Instantiate<Character2D>();
         companion.YSortEnabled = true;
         companion.Controlled = 999;
+        companion.Name = "Companion";
         companion.Position = GetNode<Node2D>("PlayerSpawn").Position;
 
         _camera = GetNode<Camera2D>("Camera2D");

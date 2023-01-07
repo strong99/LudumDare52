@@ -66,8 +66,9 @@ public partial class Character2D : Node2D, Interactable
     {
         if (@event is InputEventMouseButton i && i.IsActionPressed("Do"))
         {
-            var t = GetNode<Sprite2D>("Tree");
-            var r = t.GetRect();
+            var t = _skin;
+            var s = t.Frames.GetFrame(t.Animation, t.Frame).GetSize();
+            var r = new Rect2(new Vector2(t.Offset.x - s.x / 2, t.Offset.y - s.y / 2), s.x, s.y);
             var l = GetLocalMousePosition();
             if (r.HasPoint(l) && IsOnTeamPlayer && !IsDead)
             {
@@ -155,9 +156,12 @@ public partial class Character2D : Node2D, Interactable
 
     private NavigationAgent2D _agent;
 
+    private AnimatedSprite2D _skin;
+
     public override void _Ready()
     {
         _agent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+        _skin = GetNode<AnimatedSprite2D>("Skin");
 
         base._Ready();
     }
@@ -165,6 +169,44 @@ public partial class Character2D : Node2D, Interactable
     private Double _lastAttack = 0;
 
     private Dictionary<Interactable, Double> _lastSeen = new();
+
+    private String _previousDirection = "south";
+    private void UpdateAnim(Vector2 next)
+    {
+        var direction = Position.DirectionTo(next);
+        if (direction != Vector2.Zero)
+        {
+            var nearestDistance = Double.MaxValue;
+            var nearest = default(string);
+            foreach (var wind in Player._animationDirections)
+            {
+                var d = wind.Key.DistanceSquaredTo(direction);
+                if (d < nearestDistance)
+                {
+                    nearestDistance = d;
+                    nearest = wind.Value;
+                }
+            }
+            _previousDirection = nearest;
+        }
+
+        if (!String.IsNullOrWhiteSpace(_previousDirection))
+        {
+            var animation = $"{_previousDirection}_{Action}";
+            if (_skin.Animation != animation)
+            {
+                _skin.Play(animation);
+                _skin.AnimationFinished += _skin_AnimationFinished;
+            }
+        }
+    }
+
+    public String Action { get; set; } = "walk";
+    private void _skin_AnimationFinished()
+    {
+        Action = "walk";
+        _skin.AnimationFinished -= _skin_AnimationFinished;
+    }
 
     public override void _Process(System.Double delta)
     {
@@ -195,6 +237,8 @@ public partial class Character2D : Node2D, Interactable
             if (value > 4000)
                 _lastSeen.Remove(key);
         }
+
+        Vector2 next = Vector2.Zero;
 
         var parent = GetParent<PlayCave>();
         if (parent != null)
@@ -255,7 +299,7 @@ public partial class Character2D : Node2D, Interactable
                     _agent.TargetLocation = target.Position;
                     _agent.TargetDesiredDistance = attackDistance * 0.8f;
                 }
-                var nextLocation = _agent.GetNextLocation();
+                var nextLocation = next = _agent.GetNextLocation();
                 Direction = (nextLocation - Position).Normalized();
                 Position = Position.MoveToward(nextLocation, (Single)delta * attackSpeed);
             }
@@ -338,6 +382,8 @@ public partial class Character2D : Node2D, Interactable
         }
 
         _claimedGoal?.Process(delta);
+
+        UpdateAnim(next);
 
         base._Process(delta);
     }

@@ -19,7 +19,7 @@ public partial class Player : Node2D, Interactable
     private Double _hungerPoints = 10;
     [Export] public Double MaxHungerPoints { get; set; } = 10;
 
-    private static Godot.Collections.Dictionary<Vector2, String> _animationDirections = new()
+    public static Godot.Collections.Dictionary<Vector2, String> _animationDirections = new()
     {
         [new Vector2(1f, 0f)] = "east",
         [new Vector2(0.5f, 0.5f)] = "southeast",
