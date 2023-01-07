@@ -27,12 +27,13 @@ public partial class PlayCave : Node2D
 
     private HashSet<Wave> _waves = new()
     {
-        new Wave(1000, 15000, false, "MerchantA", "MerchantB"),
-        new Wave(1200, 15000, true, "MerchantA", "MerchantB"),
-        new Wave(15000, 17000, false, "MerchantA", "PriestA"),
-        new Wave(4500, 21000, true, "PriestB", "PriestA"),
-        new Wave(12000, 81000, true, "GuardA", "PriestA"),
-        new Wave(23000, 81000, true, "GuardA", "GuardB", "PriestA")
+        new Wave(1000, 60000, true, "MerchantA"),
+        //new Wave(1000, 20000, false, "MerchantA", "MerchantB"),
+        //new Wave(1200, 60000, true, "MerchantA", "MerchantB"),
+        //new Wave(15000, 17000, false, "MerchantA", "PriestA"),
+        //new Wave(4500, 21000, true, "PriestB", "PriestA"),
+        //new Wave(12000, 81000, true, "GuardA", "PriestA"),
+        //new Wave(23000, 81000, true, "GuardA", "GuardB", "PriestA")
     };
 
     public override void _Ready()
@@ -102,12 +103,12 @@ public partial class PlayCave : Node2D
                     if (wave.SetupCamp)
                     {
                         group.Add(new GoalGroup("PrepareCamp").Add(
-                                new ConstructGoal("SetupCamp", poiNodes.First().Position, "tent"),
+                                new ConstructGoal("SetupCamp", poiNodes.First().Position, "Tent", 70),
                                 new CollectItemGoal("CollectWater", poiNodes.First().Position),
                                 new CollectItemGoal("CollectWood", poiNodes.First().Position))
                         );
                         group.Add(new IdleGoal("sleep", poiNodes.First().Position, 5000));
-                        group.Add(new DeconstructGoal("PrepareDeparture", poiNodes.First().Position, "tent"));
+                        group.Add(new DeconstructGoal("PrepareDeparture", poiNodes.First().Position, "Tent"));
                     }
                     group.Add(new LeaveGoal("leave", spawnNodes.First(p => p.Position != group.Entrance).Position));
                 }
@@ -115,12 +116,50 @@ public partial class PlayCave : Node2D
         }
     }
 
-    public T GetOnLocation<T>(Vector2 position)
+    public T GetOnLocation<T>(Vector2 position) where T : Node2D
     {
         var tileMap = GetNode<TileMap>("TileMap");
         var localCoords = tileMap.ToLocal(position);
         var tileCoords = tileMap.LocalToMap(localCoords);
+        
+        foreach (var child in tileMap.GetChildren())
+        {
+            if (child is T c)
+            {
+                var tilePosition = tileMap.LocalToMap(c.Position);
+                var tileId = tileMap.GetCellSourceId(1, tilePosition);
+
+                if (tileMap.LocalToMap(c.Position) == tileCoords)
+                {
+                    return c;
+                }
+
+                break;
+            }
+        }
 
         return default;
+    }
+
+    public void Construct(Character2D character2D, Vector2 position, String type)
+    {
+        var tileMap = GetNode<TileMap>("TileMap");
+        var tileMapCoords = tileMap.ToLocal(position);
+        var tileCoords = tileMap.LocalToMap(tileMapCoords);
+        tileMap.SetCell(1, tileCoords, 4, Vector2i.Zero, 1);
+    }
+
+    public void Deconstruct(Character2D character2D, Vector2 position, String type)
+    {
+        var construction = GetOnLocation<Construction>(position);
+        if (construction == null)
+            return;
+
+        var tileMap = GetNode<TileMap>("TileMap");
+        var tileMapCoords = tileMap.ToLocal(position);
+        var tileCoords = tileMap.LocalToMap(tileMapCoords);
+        tileMap.SetCell(1, tileCoords, -1, null, -1);
+        tileMap.RemoveChild(construction);
+        construction.QueueFree();
     }
 }

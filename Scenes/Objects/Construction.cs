@@ -1,7 +1,9 @@
 ﻿using Godot;
 using System;
 
-public abstract partial class Construction : Node2D
+public partial class Construction : Node2D
 {
-    public String Type { get; }
+    [Export] public String Type { get; set; }
+    [Export] public Int32 Width { get; set; }
+    [Export] public Int32 Height { get; set; }
 }

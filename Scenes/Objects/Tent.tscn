@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5evphfolfr8b"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Construction.cs" id="1_dqx5h"]
+[ext_resource type="Texture2D" uid="uid://scvue52k5cco" path="res://Assets/Objects/tent.svg" id="1_xi6sy"]
+
+[node name="Tent" type="Node2D"]
+script = ExtResource("1_dqx5h")
+Type = "Tent"
+
+[node name="Tent" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_xi6sy")
+offset = Vector2(-1, -14)

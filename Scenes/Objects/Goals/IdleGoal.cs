@@ -8,7 +8,7 @@ public class IdleGoal : BaseGoal, HasDestinationGoal, ActionGoal
     public Double Duration { get; }
     public Double TimeLeft { get; private set; }
 
-    public Boolean OnLocation { get => Claiment.Position.DistanceSquaredTo(Destination) <= Threshold; }
+    public Boolean OnLocation { get => Claiment.Position.DistanceSquaredTo(Destination) <= Threshold * Threshold; }
     public override Boolean Finished { get => TimeLeft <= 0; }
 
     public IdleGoal(String id, Vector2 destination, Double gatherDuration = 3000, Double threshold = 10) : base(id)
@@ -22,7 +22,7 @@ public class IdleGoal : BaseGoal, HasDestinationGoal, ActionGoal
     {
         if (!Finished && OnLocation)
         {
-            TimeLeft -= delta;
+            TimeLeft -= delta * 1000;
         }
     }
 }

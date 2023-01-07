@@ -18,7 +18,7 @@ public partial class Gameplay : Node2D
         );
     }
 
-    public T GetOnLocation<T>(Vector2 position)
+    public T GetOnLocation<T>(Vector2 position) where T : Node2D
     {
         if (_tracking is PlayCave playCave)
         {

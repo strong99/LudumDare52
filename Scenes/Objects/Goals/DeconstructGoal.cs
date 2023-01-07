@@ -7,7 +7,7 @@ public class DeconstructGoal : BaseGoal, HasDestinationGoal
     public Vector2 Destination { get; }
 
     public String Type { get; }
-    public override Boolean Finished { get; }
+    public override Boolean Finished { get => _finished; }
     private Boolean _finished = false;
 
     public DeconstructGoal(String id, Vector2 destination, String type, Double threshold = 10) : base(id)
@@ -18,7 +18,7 @@ public class DeconstructGoal : BaseGoal, HasDestinationGoal
     }
     public override void Process(Double delta)
     {
-        if (!Finished && Claiment.GetParent<Gameplay>().GetOnLocation<Construction>(Destination)?.Type != Type)
+        if (!Finished && Claiment.GetAncestor<Gameplay>().GetOnLocation<Construction>(Destination)?.Type != Type)
         {
             _finished = true;
         }
