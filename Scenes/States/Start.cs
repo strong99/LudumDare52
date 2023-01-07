@@ -14,7 +14,7 @@ public partial class Start : Node2D
     }
 
     private static readonly string AnimationReady = "Ready";
-    private static readonly string AnimationIntroduction = "Introduction";
+    private static readonly string AnimationIntroduction = "WakeUp";
     public void OnStartButtonPressed()
     {
         if (_player.IsPlaying() && _player.AssignedAnimation == AnimationIntroduction)
@@ -25,7 +25,7 @@ public partial class Start : Node2D
     public void OnStartImmediatlyButtonPressed()
     {
         var scene = ResourceLoader.Load<PackedScene>("res://Scenes/States/Gameplay.tscn").Instantiate<Gameplay>();
-        scene.SetScene("Playcave2");
+        scene.SetScene("Playcave");
 
         var parent = GetParent();
         parent.AddChild(

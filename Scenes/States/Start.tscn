@@ -1,7 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkgtnuu7hkcch"]
+[gd_scene load_steps=24 format=3 uid="uid://bkgtnuu7hkcch"]
 
-[ext_resource type="Texture2D" uid="uid://dle6p4tl4idfx" path="res://Assets/Cutscenes/wakeup.png" id="1_mo7d4"]
 [ext_resource type="Script" path="res://Scenes/States/Start.cs" id="1_rtpyw"]
+[ext_resource type="Texture2D" uid="uid://ygkihprqsc23" path="res://Assets/Cutscenes/wakeUpBackground.png" id="2_tvbhc"]
+[ext_resource type="Texture2D" uid="uid://b2ib4rjs22trt" path="res://Assets/Cutscenes/wakeUpBoy.png" id="3_3noab"]
+[ext_resource type="Texture2D" uid="uid://25wrvcv1wsiq" path="res://Assets/Cutscenes/wakUpBackgroundMountains-01.png" id="3_8olb8"]
+[ext_resource type="Texture2D" uid="uid://baqirab63e86q" path="res://Assets/Cutscenes/collapsedCave2.png" id="3_kshie"]
+[ext_resource type="Texture2D" uid="uid://cj4tsgwt8g13e" path="res://Assets/Cutscenes/wakeUpBackgroundBottom.png" id="4_3ht4d"]
+[ext_resource type="Texture2D" uid="uid://cjrmx84gi24vc" path="res://Assets/Cutscenes/wakeupMother1.png" id="4_dai0b"]
+[ext_resource type="Texture2D" uid="uid://bqoncndn4omv4" path="res://Assets/Cutscenes/wakeupMother2.png" id="5_qg4wa"]
+[ext_resource type="Texture2D" uid="uid://cvrew2fovnad0" path="res://Assets/Cutscenes/moon.png" id="6_8pawt"]
+[ext_resource type="Texture2D" uid="uid://cpfy7ifr1dbbv" path="res://Assets/Cutscenes/companion.svg" id="7_nhn0r"]
+[ext_resource type="Texture2D" uid="uid://dowwswr83t62n" path="res://Assets/Cutscenes/companionGlow.png" id="8_67uhb"]
+[ext_resource type="Texture2D" uid="uid://cewnjvebltb1f" path="res://Assets/Cutscenes/halffade.png" id="9_mxd53"]
+[ext_resource type="Texture2D" uid="uid://bvp5tfdn8h472" path="res://Assets/Cutscenes/handGlow.svg" id="9_sj8ef"]
 
 [sub_resource type="Animation" id="Animation_gq4p2"]
 resource_name = "Introduction"
@@ -55,7 +66,7 @@ tracks/0/path = NodePath("Camera2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
@@ -67,37 +78,509 @@ tracks/1/path = NodePath("AspectRatioContainer2:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["Loop", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_t4jxq"]
+resource_name = "Loop"
+length = 30.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 11, 30),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WakeupMother1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.0001, 1.3, 2.5, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/WakeupMother2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.4, 4.8, 6.6, 6.9, 7.7, 8, 10.5, 10.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/WakeupMother2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7.3, 7.4, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(145, 6), Vector2(145, 6), Vector2(494, 1), Vector2(494, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WakeUpBackground/Mountains:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5.9, 14.6, 18.9, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WakeUpBackground/CollapsedCave2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WakeUpBackground/Bottom:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 16, 18.9, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Camera2D:zoom")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ix2xm"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_x1gyt"]
+resource_name = "WakeUp"
+length = 81.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(10.9, 31.8, 32),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.75, 0.75), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WakeupMother1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.0001, 1.3, 2.5, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/WakeupMother2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.4, 4.8, 6.6, 6.9, 7.7, 8, 10.5, 10.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/WakeupMother2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7.3, 7.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(145, 6), Vector2(145, 6), Vector2(494, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WakeUpBackground/Mountains:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5.9, 8.9, 31.8, 32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WakeUpBackground/CollapsedCave2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 31.8, 32),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WakeUpBackground/Bottom:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 31.8, 32),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WakeUpBackground/Path2D/PathFollow2D:progress_ratio")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 28.5, 68.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 30.0]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(80.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnStartImmediatlyButtonPressed"
+}]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("WakeUpBackground/Companion:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 68.2, 70.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("WakeUpBackground/HandGlow:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 75.3, 80.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("WakeUpBackground/CompanionGlow:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 76.4, 80.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("VBoxContainer/PanelContainer/MarginContainer/Subtitles:text")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 4.4, 13.7, 22.8, 33.3, 45.1, 52.4, 72.1, 74.1, 76.9, 81),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["	", "She told me she would be proud,
+if I stayed put", "In my wait,
+I defied hunger,
+I defied thirst,", "I stayed put
+for countless years", "Happily waiting on my own", "So tired
+So hungry", "", "DON'T LEAVE", "Person: GHOST?!?
+Back to your gra...", "Person: ...
+... I ... won't leave ... ", ""]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("VBoxContainer:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 4.4, 52.3, 72.1, 78.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("VBoxContainer/PanelContainer/MarginContainer/Subtitles:visible_ratio")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 4.375, 4.4, 11.4, 13.6667, 13.7, 20.7, 22.75, 22.8, 31.2, 33.25, 33.3, 43.4, 45.0417, 45.1, 52.3, 52.4, 70, 72, 72.1, 74, 74.1, 76.1, 76.8, 76.9, 78.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]
+}
+tracks/15/type = "animation"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("EyeLids")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"clips": PackedStringArray("QuickClose", "TryingToKeepAwake", "TryingToKeepAwake", "TryingToKeepAwake", "TryingToKeepAwake", "TryingToKeepAwake", "TryingToKeepAwake", "QuickClose"),
+"times": PackedFloat32Array(0, 31.2, 43.4, 52, 61.3, 67.1, 69.3, 73.4)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("AspectRatioContainer2:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1kal2"]
 _data = {
 "Introduction": SubResource("Animation_gq4p2"),
-"Ready": SubResource("Animation_7k0vm")
+"Loop": SubResource("Animation_t4jxq"),
+"RESET": SubResource("Animation_ix2xm"),
+"Ready": SubResource("Animation_7k0vm"),
+"WakeUp": SubResource("Animation_x1gyt")
 }
+
+[sub_resource type="Animation" id="Animation_24kyu"]
+resource_name = "TryingToKeepAwake"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Halffade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(654, -273), Vector2(635, 51), Vector2(646, 206), Vector2(635, 51), Vector2(635, 263), Vector2(635, 51), Vector2(654, -273), Vector2(635, 51), Vector2(654, -273)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Halffade2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(614, 1023), Vector2(622, 728), Vector2(622, 543), Vector2(622, 728), Vector2(625, 521), Vector2(622, 728), Vector2(614, 1023), Vector2(622, 728), Vector2(614, 1023)]
+}
+
+[sub_resource type="Animation" id="Animation_s1714"]
+resource_name = "QuickClose"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Halffade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(654, -273), Vector2(635, 229), Vector2(654, -273)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Halffade2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(614, 1023), Vector2(648, 468), Vector2(614, 1023)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3g83u"]
+_data = {
+"QuickClose": SubResource("Animation_s1714"),
+"TryingToKeepAwake": SubResource("Animation_24kyu")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_5t0lr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -306.834, 91.5854, -189.554, -0.0868939, 189.554, 0.0868939, 326.253, -435.931)
+}
+point_count = 2
 
 [node name="Start" type="Node2D"]
 script = ExtResource("1_rtpyw")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1280.0
-offset_bottom = 720.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1kal2")
+}
 
-[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
-clip_contents = true
-layout_mode = 2
-texture = ExtResource("1_mo7d4")
-stretch_mode = 6
+[node name="EyeLids" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3g83u")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 362)
+current = true
+zoom = Vector2(3, 3)
+
+[node name="WakeUpBackground" type="Sprite2D" parent="."]
+position = Vector2(640, 395)
+texture = ExtResource("2_tvbhc")
+
+[node name="Path2D" type="Path2D" parent="WakeUpBackground"]
+position = Vector2(5.58313, 165.288)
+scale = Vector2(1.22732, 1.28527)
+curve = SubResource("Curve2D_5t0lr")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="WakeUpBackground/Path2D"]
+position = Vector2(326.253, -435.932)
+rotation = 0.000453759
+progress = 836.861
+
+[node name="Moon" type="Sprite2D" parent="WakeUpBackground/Path2D/PathFollow2D"]
+texture = ExtResource("6_8pawt")
+
+[node name="Mountains" type="Sprite2D" parent="WakeUpBackground"]
+position = Vector2(-2, 12)
+texture = ExtResource("3_8olb8")
+
+[node name="CollapsedCave2" type="Sprite2D" parent="WakeUpBackground"]
+position = Vector2(-3, -21)
+texture = ExtResource("3_kshie")
+
+[node name="Bottom" type="Sprite2D" parent="WakeUpBackground"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, 312)
+texture = ExtResource("4_3ht4d")
+
+[node name="Companion" type="Sprite2D" parent="WakeUpBackground"]
+visible = false
+position = Vector2(-19, 79)
+scale = Vector2(0.342504, 0.342504)
+texture = ExtResource("7_nhn0r")
+
+[node name="CompanionGlow" type="Sprite2D" parent="WakeUpBackground"]
+visible = false
+position = Vector2(-276, 84)
+texture = ExtResource("8_67uhb")
+
+[node name="HandGlow" type="Sprite2D" parent="WakeUpBackground"]
+visible = false
+position = Vector2(311, 231)
+scale = Vector2(1, 1)
+texture = ExtResource("9_sj8ef")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(619, 547)
+scale = Vector2(1e-05, 1e-05)
+
+[node name="WakeUpBoy" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("3_3noab")
+offset = Vector2(18, -167)
+
+[node name="WakeupMother1" type="Sprite2D" parent="Node2D"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-105, 11)
+texture = ExtResource("4_dai0b")
+
+[node name="WakeupMother2" type="Sprite2D" parent="Node2D"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(494, 1)
+scale = Vector2(0.922973, 0.866667)
+texture = ExtResource("5_qg4wa")
 
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,14 +607,45 @@ text = "Skip intro"
 layout_mode = 2
 text = "Quit	"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_1kal2")
-}
+[node name="Halffade" type="Sprite2D" parent="."]
+position = Vector2(654, -273)
+scale = Vector2(5.63477, 4.08238)
+texture = ExtResource("9_mxd53")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(636, 362)
-current = true
+[node name="Halffade2" type="Sprite2D" parent="."]
+position = Vector2(614, 1023)
+rotation = -3.14159
+scale = Vector2(5.47318, 4.28697)
+texture = ExtResource("9_mxd53")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 25)
+offset_left = 344.0
+offset_top = 629.0
+offset_right = 856.0
+offset_bottom = 713.0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Subtitles" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Person: ...
+... I ... won't leave ... "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnStart" to="." method="OnStartButtonPressed"]
 [connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnSkipIntro" to="." method="OnStartImmediatlyButtonPressed"]

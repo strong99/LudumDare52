@@ -3,6 +3,7 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using static System.Collections.Specialized.BitVector32;
+using static System.Net.Mime.MediaTypeNames;
 
 public partial class Player : Node2D, Interactable
 {
@@ -56,11 +57,25 @@ public partial class Player : Node2D, Interactable
 
         HungerPoints -= delta / 4;
 
+        Vector2 next = Position;
         if (!_agent.IsNavigationFinished())
         {
-            var next = _agent.GetNextLocation();
+            next = _agent.GetNextLocation();
 
-            var direction = Position.DirectionTo(next);
+            var speed = 120.0f;
+            Position = Position.MoveToward(next, (Single)delta * speed);
+        }
+
+        UpdateAnim(next);
+    }
+
+    private String _previousDirection = "south";
+    private void UpdateAnim(Vector2 next)
+    {
+        var direction = Position.DirectionTo(next);
+        if (direction != Vector2.Zero)
+        {
+
             var nearestDistance = Double.MaxValue;
             var nearest = default(string);
             foreach (var wind in _animationDirections)
@@ -72,19 +87,25 @@ public partial class Player : Node2D, Interactable
                     nearest = wind.Value;
                 }
             }
-            if (!String.IsNullOrWhiteSpace(nearest))
-            {
-                var action = "walk";
-                var animation = $"{nearest}_{action}";
-                if (_skin.Animation != animation)
-                {
-                    _skin.Play(animation);
-                }
-            }
-
-            var speed = 120.0f;
-            Position = Position.MoveToward(next, (Single)delta * speed);
+            _previousDirection = nearest;
         }
+
+        if (!String.IsNullOrWhiteSpace(_previousDirection))
+        {
+            var animation = $"{_previousDirection}_{Action}";
+            if (_skin.Animation != animation)
+            {
+                _skin.Play(animation);
+                _skin.AnimationFinished += _skin_AnimationFinished;
+            }
+        }
+    }
+
+    public String Action { get; set; } = "walk";
+    private void _skin_AnimationFinished()
+    {
+        Action = "walk";
+        _skin.AnimationFinished -= _skin_AnimationFinished;
     }
 
     public void Damage(Double attack)

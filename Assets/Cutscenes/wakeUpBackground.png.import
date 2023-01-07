@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dle6p4tl4idfx"
-path="res://.godot/imported/wakeup.png-0c435db400e20bf63c9ed59e7e3ee875.ctex"
+uid="uid://ygkihprqsc23"
+path="res://.godot/imported/wakeUpBackground.png-710da3c2bb653069e68e1fd8a2045a63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Cutscenes/wakeup.png"
-dest_files=["res://.godot/imported/wakeup.png-0c435db400e20bf63c9ed59e7e3ee875.ctex"]
+source_file="res://Assets/Cutscenes/wakeUpBackground.png"
+dest_files=["res://.godot/imported/wakeUpBackground.png-710da3c2bb653069e68e1fd8a2045a63.ctex"]
 
 [params]
 

@@ -87,6 +87,7 @@ public partial class PlayCave : Node2D
         if (tryControl || tryHarvest) 
         {
             //find nearest character
+            _player.Action = "control";
             var children = GetChildren();
             foreach(var child in children)
             {
@@ -122,8 +123,7 @@ public partial class PlayCave : Node2D
     public override void _Process(Double delta)
     {
         var previoustimePassed = _timePassed;
-        //_timePassed += delta * 1000;
-        //_camera.Position = _camera.Position.MoveToward(_player.Position, (Single)delta * 50f);
+        _timePassed += delta * 1000;
         _camera.Position = _player.Position;
 
         TryNextSpawn(previoustimePassed, _timePassed);
@@ -132,9 +132,6 @@ public partial class PlayCave : Node2D
         {
             m._Process(delta);
         }
-
-        //var p = _player.Position;
-        //(_tileMapObjects.Material as ShaderMaterial).SetShaderParameter("position", p);
 
         base._Process(delta);
     }
