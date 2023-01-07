@@ -6,7 +6,7 @@ using System.Linq;
 
 class Wave
 {
-    public HashSet<String> Participants { get; }
+    public String[] Participants { get; }
     public Double Interval { get; } = 4000;
     public Double InitialDelay { get; } = 0;
     public Boolean SetupCamp { get; } = false;
@@ -15,7 +15,7 @@ class Wave
         InitialDelay = initialDelay;
         Interval = interval;
         SetupCamp = setupCamp;
-        Participants = participants.ToHashSet();
+        Participants = participants.ToArray();
     }
 }
 
@@ -27,7 +27,7 @@ public partial class PlayCave : Node2D
 
     private HashSet<Wave> _waves = new()
     {
-        new Wave(1000, 60000, true, "MerchantA"),
+        new Wave(1000, 40000, true, "MerchantA", "MerchantA", "MerchantA"),
         //new Wave(1000, 20000, false, "MerchantA", "MerchantB"),
         //new Wave(1200, 60000, true, "MerchantA", "MerchantB"),
         //new Wave(15000, 17000, false, "MerchantA", "PriestA"),
@@ -75,9 +75,11 @@ public partial class PlayCave : Node2D
         base._Process(delta);
     }
 
+    private Random _random = new();
+
     private void TryNextSpawn(Double previousTime, Double currentTime)
     {
-        var poiNodes = GetTree().GetNodesInGroup("POIs").OfType<Node2D>();
+        var poiNodes = GetTree().GetNodesInGroup("POIs").OfType<POI2D>();
         var spawnNodes = GetTree().GetNodesInGroup("Spawn").OfType<Node2D>();
         foreach (var wave in _waves)
         {
@@ -86,10 +88,42 @@ public partial class PlayCave : Node2D
             var t = Math.Ceiling(p);
             if (n >= t)
             {
-                Debug.WriteLine($"Spawn group: {String.Join("; ",wave.Participants)}");
+                Debug.WriteLine($"Spawn group: {String.Join("; ", wave.Participants)}");
                 var spawn = spawnNodes.First();
 
                 var group = new SharedGoal();
+                if (wave.SetupCamp)
+                {
+                    var campSite = GetRandom(poiNodes.Where(p => p.Is("Campsite")));
+                    var intermediateRoadNode = GetRandom(poiNodes.Where(p => p.Is("Intermediate")));
+                    group.Add(new GoalGroup("PrepareCamp").Add(
+                            new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)),
+                            new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)) { Optional = true },
+                            new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)) { Optional = true },
+                            new GoToLocationGoal("goto", Jitter(intermediateRoadNode.Position)) { Optional = true }
+                    ));
+                    group.Add(new GoalGroup("PrepareCamp").Add(
+                            new ConstructGoal("SetupCamp", campSite.Position, "Tent", 70),
+                            new CollectItemGoal("CollectWater", GetRandom(poiNodes.Where(p => p.Is("Water"))).Position),
+                            new CollectItemGoal("CollectWater", GetRandom(poiNodes.Where(p => p.Is("BerryBush"))).Position),
+                            new CollectItemGoal("CollectWood", GetRandom(poiNodes.Where(p => p.Is("Wood"))).Position))
+                    );
+                    group.Add(new GoalGroup("Sleep").Add(
+                        new HideGoal("sleep", poiNodes.First().Position, 5000),
+                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true },
+                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true },
+                        new HideGoal("sleep", poiNodes.First().Position, 5000) { Optional = true }
+                    ));
+                    group.Add(new DeconstructGoal("PrepareDeparture", campSite.Position, "Tent"));
+                }
+                group.Entrance = spawn.Position;
+                group.Add(new GoalGroup("Leave").Add(
+                    new LeaveGoal("leave", GetRandom(spawnNodes.Where(p => p.Position != group.Entrance)).Position),
+                    new LeaveGoal("leave", GetRandom(spawnNodes.Where(p => p.Position != group.Entrance)).Position) { Optional = true },
+                    new LeaveGoal("leave", GetRandom(spawnNodes.Where(p => p.Position != group.Entrance)).Position) { Optional = true },
+                    new LeaveGoal("leave", GetRandom(spawnNodes.Where(p => p.Position != group.Entrance)).Position) { Optional = true }
+                ));
+
                 foreach (var participant in wave.Participants)
                 {
                     var path = $"res://Scenes/Objects/{participant}.tscn";
@@ -98,22 +132,19 @@ public partial class PlayCave : Node2D
                     AddChild(character);
                     character.Goal = group;
                     character.Position = spawn.Position;
-                    group.Entrance = spawn.Position;
-
-                    if (wave.SetupCamp)
-                    {
-                        group.Add(new GoalGroup("PrepareCamp").Add(
-                                new ConstructGoal("SetupCamp", poiNodes.First().Position, "Tent", 70),
-                                new CollectItemGoal("CollectWater", poiNodes.First().Position),
-                                new CollectItemGoal("CollectWood", poiNodes.First().Position))
-                        );
-                        group.Add(new IdleGoal("sleep", poiNodes.First().Position, 5000));
-                        group.Add(new DeconstructGoal("PrepareDeparture", poiNodes.First().Position, "Tent"));
-                    }
-                    group.Add(new LeaveGoal("leave", spawnNodes.First(p => p.Position != group.Entrance).Position));
                 }
             }
         }
+    }
+
+    private Vector2 Jitter(Vector2 input, Single offset = 40)
+    {
+        return new Vector2(input.x + ((Single)_random.NextDouble() - 0.5f) * offset, input.y + ((Single)_random.NextDouble() - 0.5f) * offset);
+    }
+
+    private T GetRandom<T>(IEnumerable<T> collection)
+    {
+        return collection.Skip(_random.Next(collection.Count())).First();
     }
 
     public T GetOnLocation<T>(Vector2 position) where T : Node2D
@@ -121,7 +152,7 @@ public partial class PlayCave : Node2D
         var tileMap = GetNode<TileMap>("TileMap");
         var localCoords = tileMap.ToLocal(position);
         var tileCoords = tileMap.LocalToMap(localCoords);
-        
+
         foreach (var child in tileMap.GetChildren())
         {
             if (child is T c)
@@ -133,8 +164,6 @@ public partial class PlayCave : Node2D
                 {
                     return c;
                 }
-
-                break;
             }
         }
 
@@ -146,7 +175,11 @@ public partial class PlayCave : Node2D
         var tileMap = GetNode<TileMap>("TileMap");
         var tileMapCoords = tileMap.ToLocal(position);
         var tileCoords = tileMap.LocalToMap(tileMapCoords);
-        tileMap.SetCell(1, tileCoords, 4, Vector2i.Zero, 1);
+        //tileMap.SetCell(1, tileCoords, 4, Vector2i.Zero, 1);
+
+        var c = ResourceLoader.Load<PackedScene>($"res://Scenes/Objects/{type}.tscn").Instantiate<Construction>();
+        c.Position = tileMap.MapToLocal(tileCoords);
+        tileMap.AddChild(c);
     }
 
     public void Deconstruct(Character2D character2D, Vector2 position, String type)
@@ -155,11 +188,12 @@ public partial class PlayCave : Node2D
         if (construction == null)
             return;
 
-        var tileMap = GetNode<TileMap>("TileMap");
-        var tileMapCoords = tileMap.ToLocal(position);
-        var tileCoords = tileMap.LocalToMap(tileMapCoords);
-        tileMap.SetCell(1, tileCoords, -1, null, -1);
-        tileMap.RemoveChild(construction);
+        construction.GetParent().RemoveChild(construction);
         construction.QueueFree();
+
+        //var tileMap = GetNode<TileMap>("TileMap");
+        //var tileMapCoords = tileMap.ToLocal(position);
+        //var tileCoords = tileMap.LocalToMap(tileMapCoords);
+        //tileMap.EraseCell(1, tileCoords);
     }
 }

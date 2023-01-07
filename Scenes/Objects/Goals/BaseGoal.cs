@@ -3,6 +3,8 @@
 public abstract class BaseGoal : Goal
 {
     public abstract Boolean Finished { get; }
+    public Boolean Optional { get; init; }
+    public Boolean Claimed { get => Claiment != null; }
 
     protected Character2D Claiment { get; private set; }
 

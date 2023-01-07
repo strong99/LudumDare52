@@ -6,9 +6,11 @@ public class GoalGroup : Goal
 {
     private readonly HashSet<Goal> _goals = new();
 
-    public Boolean Finished { get => _goals.All(g=>g.Finished); }
+    public Boolean Finished { get => _goals.All(g=> g.Finished || (!g.Claimed && g.Optional)); }
 
     public String Id { get; }
+    public Boolean Claimed { get => _goals.Any(g => g.Claimed); }
+    public Boolean Optional { get; init; }
 
     public GoalGroup(String id)
     {

@@ -22,4 +22,6 @@ public interface Goal
     /// Indicates whether this goal has been finished
     /// </summary>
     Boolean Finished { get; }
+    Boolean Optional { get; }
+    Boolean Claimed { get; }
 }

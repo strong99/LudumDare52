@@ -7,6 +7,10 @@ public class CollectItemGoal : BaseGoal, HasDestinationGoal, ActionGoal
     public Vector2 Destination { get; }
     public Double Duration { get; }
     public Double TimeLeft { get; private set; }
+    public Boolean IsExpired()
+    {
+        return TimeLeft <= 0;
+    }
 
     public Boolean OnLocation { get => Claiment.Position.DistanceSquaredTo(Destination) <= Threshold * Threshold; }
     public override Boolean Finished { get => TimeLeft <= 0; }

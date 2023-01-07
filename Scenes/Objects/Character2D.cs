@@ -50,8 +50,16 @@ public partial class Character2D : Node2D
                 agent.TargetDesiredDistance = (Single)hasDestinationGoal.Threshold;
             }
 
-            var speed = 30.0f;
+            var speed = 70.0f;
             Position = Position.MoveToward(agent.GetNextLocation(), (Single)delta * speed);
+        }
+        else if (_claimedGoal is HideGoal hideGoal && ((
+            !hideGoal.IsExpired() && Visible
+        ) || (
+            hideGoal.IsExpired() && !Visible
+        )))
+        {
+            Visible = !hideGoal.IsExpired();
         }
         else if (_claimedGoal is ActionGoal actionGoal && !actionGoal.IsExpired())
         {
