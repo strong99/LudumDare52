@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://de3b0qvpto63y"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Priest.cs" id="1_rrp14"]
+[ext_resource type="Script" path="res://Scenes/Objects/Character2D.cs" id="1_220hp"]
 [ext_resource type="Texture2D" uid="uid://do07plqqpmsai" path="res://Scenes/Objects/adventurorA.png" id="2_dd08p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bjok"]
@@ -215,7 +215,7 @@ animations = [{
 }]
 
 [node name="PriestB" type="Node2D"]
-script = ExtResource("1_rrp14")
+script = ExtResource("1_220hp")
 
 [node name="Skin" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -2)

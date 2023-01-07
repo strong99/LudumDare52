@@ -37,7 +37,7 @@ public partial class CommandMenu : Node2D
 
     private void OnGoGatherSouls()
     {
-        var region = GetNode<PlayCave>("../../../");
+        var region = _subject.GetAncestor<PlayCave>();
         var pois = GetTree().GetNodesInGroup("POIs").OfType<POI2D>();
         var spawns = GetTree().GetNodesInGroup("Spawn").OfType<Node2D>();
         var spawn = region.GetRandom(spawns);
@@ -57,7 +57,7 @@ public partial class CommandMenu : Node2D
 
     public void OnGoDefend()
     {
-        var region = GetNode<PlayCave>("../../../");
+        var region = _subject.GetAncestor<PlayCave>();
         var pois = GetTree().GetNodesInGroup("POIs").OfType<POI2D>();
 
         _subject.Goal = new();

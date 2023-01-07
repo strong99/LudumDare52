@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://bs4uio0mkh4eo"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Merchant.cs" id="1_yfl6m"]
+[ext_resource type="Script" path="res://Scenes/Objects/Character2D.cs" id="1_5b7gd"]
 [ext_resource type="Texture2D" uid="uid://do07plqqpmsai" path="res://Scenes/Objects/adventurorA.png" id="2_5sy5m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bjok"]
@@ -215,7 +215,7 @@ animations = [{
 }]
 
 [node name="MerchantA" type="Node2D"]
-script = ExtResource("1_yfl6m")
+script = ExtResource("1_5b7gd")
 
 [node name="Skin" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.75, 0.75)

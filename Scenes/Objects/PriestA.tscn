@@ -1,6 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://r3nc6to8m8qr"]
+[gd_scene load_steps=36 format=3 uid="uid://jcj2o1lqo711"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Priest.cs" id="1_f3jyr"]
+[ext_resource type="Script" path="res://Scenes/Objects/Character2D.cs" id="1_f3jyr"]
 [ext_resource type="Texture2D" uid="uid://do07plqqpmsai" path="res://Scenes/Objects/adventurorA.png" id="2_nhgqg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bjok"]

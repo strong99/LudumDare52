@@ -64,7 +64,7 @@ public partial class Character2D : Node2D, Interactable
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventMouseButton i && i.IsActionPressed("Do"))
+        if (@event is InputEventMouseButton i && i.IsActionReleased("Do"))
         {
             var t = _skin;
             var s = t.Frames.GetFrame(t.Animation, t.Frame).GetSize();
@@ -118,7 +118,7 @@ public partial class Character2D : Node2D, Interactable
         var name = typeof(T).Name;
         var scene = ResourceLoader.Load<PackedScene>($"res://Scenes/Icons/{name}.tscn");
         var icon = scene.Instantiate<T>();
-        icon.Position = new(0, -48);
+        icon.Position = new(0, -100);
         AddChild(icon);
     }
 

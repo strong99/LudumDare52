@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://csfeogvg5ggi0"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/Guard.cs" id="1_7iviw"]
+[ext_resource type="Script" path="res://Scenes/Objects/Character2D.cs" id="1_lft6h"]
 [ext_resource type="Texture2D" uid="uid://do07plqqpmsai" path="res://Scenes/Objects/adventurorA.png" id="2_bfanr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bjok"]
@@ -215,7 +215,7 @@ animations = [{
 }]
 
 [node name="GuardB" type="Node2D"]
-script = ExtResource("1_7iviw")
+script = ExtResource("1_lft6h")
 
 [node name="Skin" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
