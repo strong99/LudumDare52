@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://divavs0ee47kq"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/CommandMenu.cs" id="1_x7xse"]
+
+[node name="CommandMenu" type="Node2D"]
+script = ExtResource("1_x7xse")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 186.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 150.0
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Creature"
+
+[node name="btnReligion" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Preach a religion"
+
+[node name="btnSlaves" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Find slaves"
+
+[node name="btnDefend" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Defend"
+
+[node name="btnDecoy" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Distract"
+
+[connection signal="pressed" from="Panel/VBoxContainer/btnReligion" to="." method="OnGoPreachReligion"]
+[connection signal="pressed" from="Panel/VBoxContainer/btnSlaves" to="." method="OnGoFindSlaves"]
+[connection signal="pressed" from="Panel/VBoxContainer/btnDefend" to="." method="OnGoDefend"]
+[connection signal="pressed" from="Panel/VBoxContainer/btnDecoy" to="." method="OnDistract"]

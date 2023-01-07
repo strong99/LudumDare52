@@ -26,6 +26,8 @@ public partial class PlayCave : Node2D
     private Camera2D _camera;
     private Double _timePassed = 0;
 
+    private HashSet<Character2D> _missions = new();
+
     private HashSet<Wave> _waves = new()
     {
         new Wave(1000, 40000, true, "MerchantA", "MerchantA", "MerchantA"),
@@ -40,13 +42,14 @@ public partial class PlayCave : Node2D
 
     public override void _Ready()
     {
-        base._Ready();
 
         _player = ResourceLoader.Load<PackedScene>("res://Scenes/Objects/Player.tscn").Instantiate<Player>();
         _player.YSortEnabled = true;
         _camera = GetNode<Camera2D>("Camera2D");
         _camera.Current = true;
         AddChild(_player);
+
+        base._Ready();
     }
 
     public override void _Input(InputEvent inputEvent)
@@ -71,7 +74,7 @@ public partial class PlayCave : Node2D
             var children = GetChildren();
             foreach(var child in children)
             {
-                if (child is Character2D character && !character.IsDead && character.Position.DistanceSquaredTo(_player.Position) < 200)
+                if (child is Character2D character && !character.IsDead && character.Controlled < 1 && character.Position.DistanceSquaredTo(_player.Position) < 200)
                 {
                     if (tryControl)
                     {
@@ -79,6 +82,7 @@ public partial class PlayCave : Node2D
                         if (character.Controlled >= 1)
                         {
                             character.Goal = null;
+                            _player.HungerPoints -= 0.1;
                         }
                     }
                     else if (tryHarvest)
@@ -86,6 +90,8 @@ public partial class PlayCave : Node2D
                         character.Damage(2);
                         if (character.IsDead)
                         {
+                            _player.HungerPoints += 1.1;
+                            _player.HealthPoints += 0.1;
                             Debug.WriteLine("Harvested!");
                         }
                     }
@@ -104,6 +110,11 @@ public partial class PlayCave : Node2D
         _camera.Position = _camera.Position.MoveToward(_player.Position, (Single)delta * 35f);
 
         TryNextSpawn(previoustimePassed, _timePassed);
+
+        foreach(var m in _missions)
+        {
+            m._Process(delta);
+        }
 
         base._Process(delta);
     }
@@ -195,7 +206,7 @@ public partial class PlayCave : Node2D
         return new Vector2(input.x + ((Single)_random.NextDouble() - 0.5f) * offset, input.y + ((Single)_random.NextDouble() - 0.5f) * offset);
     }
 
-    private T GetRandom<T>(IEnumerable<T> collection)
+    public T GetRandom<T>(IEnumerable<T> collection)
     {
         return collection.Skip(_random.Next(collection.Count())).First();
     }
@@ -228,7 +239,6 @@ public partial class PlayCave : Node2D
         var tileMap = GetNode<TileMap>("TileMap");
         var tileMapCoords = tileMap.ToLocal(position);
         var tileCoords = tileMap.LocalToMap(tileMapCoords);
-        //tileMap.SetCell(1, tileCoords, 4, Vector2i.Zero, 1);
 
         var c = ResourceLoader.Load<PackedScene>($"res://Scenes/Objects/{type}.tscn").Instantiate<Construction>();
         c.Position = tileMap.MapToLocal(tileCoords);
@@ -243,10 +253,29 @@ public partial class PlayCave : Node2D
 
         construction.GetParent().RemoveChild(construction);
         construction.QueueFree();
+    }
 
-        //var tileMap = GetNode<TileMap>("TileMap");
-        //var tileMapCoords = tileMap.ToLocal(position);
-        //var tileCoords = tileMap.LocalToMap(tileMapCoords);
-        //tileMap.EraseCell(1, tileCoords);
+    public void AddToMissionQue(Character2D character2D)
+    {
+        _missions.Add(character2D);
+    }
+
+    private CommandMenu _menu;
+    public void ShowMenu(Character2D character2D)
+    {
+        var camera = GetNode < Camera2D >("Camera2D");
+
+        if (_menu != null)
+            camera.RemoveChild(_menu);
+
+        if (character2D != null)
+        {
+            var pack = ResourceLoader.Load<PackedScene>("res://Scenes/Objects/CommandMenu.tscn");
+            _menu = pack.Instantiate<CommandMenu>();
+            _menu.SetSubject(character2D);
+            _menu.Position = new(0, -64);
+
+            camera.AddChild(_menu);
+        }
     }
 }

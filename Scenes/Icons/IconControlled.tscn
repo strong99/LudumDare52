@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0quv3uuck47v"]
+
+[ext_resource type="Texture2D" uid="uid://3id2a2e2w82p" path="res://Assets/Icons/iconControlled.svg" id="1_tc3ae"]
+[ext_resource type="Script" path="res://Scenes/Icons/IconControlled.cs" id="2_5sh8d"]
+
+[node name="IconControlled" type="Sprite2D"]
+texture = ExtResource("1_tc3ae")
+offset = Vector2(0, -16)
+script = ExtResource("2_5sh8d")

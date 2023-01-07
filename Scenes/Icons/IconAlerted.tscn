@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://br8gkqw3fxb2l"]
+
+[ext_resource type="Texture2D" uid="uid://bl2abtarp35hp" path="res://Assets/Icons/iconAlerted.svg" id="1_xx8hj"]
+[ext_resource type="Script" path="res://Scenes/Icons/IconAlerted.cs" id="2_ogohu"]
+
+[node name="IconAlerted" type="Sprite2D"]
+texture = ExtResource("1_xx8hj")
+offset = Vector2(0, -16)
+script = ExtResource("2_ogohu")

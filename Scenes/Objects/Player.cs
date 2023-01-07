@@ -7,7 +7,15 @@ public partial class Player : Node2D, Interactable
 
     public Boolean IsDead { get => HealthPoints <= 0; }
 
-    public Double HealthPoints { get; set; } = 10;
+    [Export] public Double HealthPoints { get => _healthPoints; set => _healthPoints = Math.Clamp(value, 0, MaxHealthPoints); }
+    private Double _healthPoints = 10;
+    [Export] public Double MaxHealthPoints { get; set; } = 10;
+
+    [Export] public Double HungerPoints { get => _hungerPoints; set => _hungerPoints = Math.Clamp(value, 0, MaxHungerPoints); }
+    private Double _hungerPoints = 10;
+    [Export] public Double MaxHungerPoints { get; set; } = 10;
+
+    public Boolean IsOnTeamPlayer { get => true; }
 
     public override void _Ready()
     {
@@ -27,6 +35,8 @@ public partial class Player : Node2D, Interactable
             return;
 
         base._Process(delta);
+
+        HungerPoints -= delta / 4;
 
         if (!_agent.IsNavigationFinished())
         {
