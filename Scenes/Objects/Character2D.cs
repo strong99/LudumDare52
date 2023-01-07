@@ -338,7 +338,7 @@ public partial class Character2D : Node2D, Interactable
                 _agent.TargetDesiredDistance = (Single)hasDestinationGoal.Threshold;
             }
 
-            var nextLocation = _agent.GetNextLocation();
+            var nextLocation = next = _agent.GetNextLocation();
             Direction = (nextLocation - Position).Normalized();
             Position = Position.MoveToward(nextLocation, (Single)delta * normalSpeed);
         }

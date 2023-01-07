@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://vfvgfk0jkmjj"]
+[gd_scene load_steps=15 format=3 uid="uid://vfvgfk0jkmjj"]
 
 [ext_resource type="Script" path="res://Scenes/States/PlayCave.cs" id="1_mnyt0"]
 [ext_resource type="TileSet" uid="uid://ceuv2re16q52c" path="res://Scenes/States/Tiles128x64.tres" id="2_kemi4"]
@@ -8,8 +8,11 @@
 [ext_resource type="Shader" path="res://Assets/PlayCave.gdshader" id="8_585e6"]
 [ext_resource type="Texture2D" uid="uid://3id2a2e2w82p" path="res://Assets/Icons/iconControlled.svg" id="8_ofdyt"]
 [ext_resource type="Script" path="res://Scenes/States/HungerbarValue.cs" id="9_56qvv"]
+[ext_resource type="Texture2D" uid="uid://ygr5rm1nqvck" path="res://Assets/Icons/button.png" id="10_qvdpv"]
 [ext_resource type="Texture2D" uid="uid://btsood3u7j1kw" path="res://Assets/Objects/godray.svg" id="10_srfsd"]
 [ext_resource type="Script" path="res://Scenes/States/WorldAlertnessbarValue.cs" id="11_8jwh6"]
+[ext_resource type="Texture2D" uid="uid://cm2rcphb58s4a" path="res://Assets/Icons/iconFight-01.png" id="11_lslmu"]
+[ext_resource type="Texture2D" uid="uid://c0kosnup16n4o" path="res://Assets/Icons/iconMindControl-01.png" id="12_1gxla"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_61umi"]
 shader = ExtResource("8_585e6")
@@ -244,6 +247,62 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "0"
 script = ExtResource("11_8jwh6")
+
+[node name="AttackHint" type="TextureRect" parent="Camera2D"]
+offset_left = -622.0
+offset_top = 285.0
+offset_right = -558.0
+offset_bottom = 349.0
+tooltip_text = "Attack"
+texture = ExtResource("10_qvdpv")
+
+[node name="Label" type="Label" parent="Camera2D/AttackHint"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 52.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/AttackHint"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -71.0
+offset_right = 63.0
+offset_bottom = -7.0
+texture = ExtResource("11_lslmu")
+
+[node name="ControlHint" type="TextureRect" parent="Camera2D"]
+offset_left = -548.0
+offset_top = 285.0
+offset_right = -484.0
+offset_bottom = 349.0
+tooltip_text = "Mind control"
+texture = ExtResource("10_qvdpv")
+
+[node name="Label" type="Label" parent="Camera2D/ControlHint"]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 52.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/ControlHint"]
+layout_mode = 1
+offset_left = -1.0
+offset_top = -71.0
+offset_right = 63.0
+offset_bottom = -7.0
+texture = ExtResource("12_1gxla")
 
 [node name="Godray" type="Sprite2D" parent="."]
 position = Vector2(1054, 643)
