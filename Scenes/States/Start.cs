@@ -22,6 +22,19 @@ public partial class Start : Node2D
 
         _player.Play(AnimationIntroduction);
     }
+    public void OnStartImmediatlyButtonPressed()
+    {
+        var scene = ResourceLoader.Load<PackedScene>("res://Scenes/States/Gameplay.tscn").Instantiate<Gameplay>();
+        scene.SetScene("Playcave");
+
+        var parent = GetParent();
+        parent.AddChild(
+            scene
+        );
+        parent.RemoveChild(this);
+
+        QueueFree();
+    }
 
     public void OnStartGame()
     {

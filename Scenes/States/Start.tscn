@@ -93,8 +93,7 @@ grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
 clip_contents = true
-offset_right = 1280.0
-offset_bottom = 1024.0
+layout_mode = 2
 texture = ExtResource("1_mo7d4")
 stretch_mode = 6
 
@@ -110,20 +109,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer2"]
-offset_top = 134.0
-offset_right = 200.0
-offset_bottom = 200.0
+layout_mode = 2
 size_flags_vertical = 8
 
 [node name="btnStart" type="Button" parent="AspectRatioContainer2/VBoxContainer"]
-offset_right = 200.0
-offset_bottom = 31.0
+layout_mode = 2
 text = "Wake up"
 
+[node name="btnSkipIntro" type="Button" parent="AspectRatioContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Skip intro"
+
 [node name="btnQuit" type="Button" parent="AspectRatioContainer2/VBoxContainer"]
-offset_top = 35.0
-offset_right = 200.0
-offset_bottom = 66.0
+layout_mode = 2
 text = "Quit	"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -136,4 +134,5 @@ position = Vector2(636, 362)
 current = true
 
 [connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnStart" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnSkipIntro" to="." method="OnStartImmediatlyButtonPressed"]
 [connection signal="pressed" from="AspectRatioContainer2/VBoxContainer/btnQuit" to="." method="OnQuitButtonPressed"]

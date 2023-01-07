@@ -18,6 +18,7 @@ public partial class StoryCollapsedCave : Node2D
 
     private void _player_AnimationFinished(StringName animName)
     {
-        GetParent<Gameplay>().SetScene("Cutscenes/StoryFound");
+        //GetParent<Gameplay>().SetScene("Cutscenes/StoryFound");
+        GetParent<Gameplay>().SetScene("PlayCave");
     }
 }

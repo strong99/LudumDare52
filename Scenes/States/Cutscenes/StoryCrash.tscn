@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://be81scsfk3c5t"]
 
 [ext_resource type="Script" path="res://Scenes/States/Cutscenes/StoryCrash.cs" id="1_m1g1p"]
 [ext_resource type="Texture2D" uid="uid://c5o7kmkx3fl2i" path="res://Assets/Cutscenes/planet.svg" id="2_d2adc"]
@@ -6,33 +6,88 @@
 [ext_resource type="Texture2D" uid="uid://cvrew2fovnad0" path="res://Assets/Cutscenes/moon.png" id="4_el7rk"]
 [ext_resource type="Texture2D" uid="uid://ciuer0486hh5i" path="res://Assets/Cutscenes/sun.svg" id="5_ljw3a"]
 [ext_resource type="Texture2D" uid="uid://d1qw4r8jreeop" path="res://Assets/Cutscenes/ship.svg" id="6_mgnvu"]
-ion = Vector2(419, 354)
-texture = ExtResource("3_yo8rk")
-offset = Vector2(38, -4)
+
+[sub_resource type="Animation" id="Animation_cggtm"]
+resource_name = "Play"
+length = 11.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CrashPath/Shipfollower:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 7.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 7, 7.2, 7.4, 7.8, 8.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CrashPath/Shipfollower/Ship:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 7.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rjvu"]
+_data = {
+"Play": SubResource("Animation_cggtm")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_cejtv"]
+_data = {
+"points": PackedVector2Array(238.815, 195.088, -238.815, -195.088, 1370, 289, 489.402, -292.632, -489.402, 292.632, 423, 297)
+}
+point_count = 2
+
+[node name="Scene" type="Node2D"]
+script = ExtResource("1_m1g1p")
 
 [node name="Moon" type="Sprite2D" parent="."]
-position = Vector2(639, 251)
+position = Vector2(797, 258)
 texture = ExtResource("4_el7rk")
 
+[node name="Planet" type="Sprite2D" parent="."]
+position = Vector2(268, 417)
+texture = ExtResource("2_d2adc")
+
 [node name="Sun" type="Sprite2D" parent="."]
-position = Vector2(136, 128)
+position = Vector2(285, 107)
 texture = ExtResource("5_ljw3a")
+
+[node name="Crash" type="Sprite2D" parent="."]
+position = Vector2(368, 336)
+texture = ExtResource("3_yo8rk")
+offset = Vector2(35, -4)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_qnte0")
+"": SubResource("AnimationLibrary_5rjvu")
 }
 
-[node name="ShipPath2D" type="Path2D" parent="."]
-position = Vector2(-3, 0)
-curve = SubResource("Curve2D_5rq6f")
+[node name="CrashPath" type="Path2D" parent="."]
+position = Vector2(-45, 35)
+curve = SubResource("Curve2D_cejtv")
 
-[node name="ShipPathFollow2D" type="PathFollow2D" parent="ShipPath2D"]
-position = Vector2(428, 347)
-rotation = 2.68746
-progress = 990.001
+[node name="Shipfollower" type="PathFollow2D" parent="CrashPath"]
 
-[node name="Ship" type="Sprite2D" parent="ShipPath2D/ShipPathFollow2D"]
-position = Vector2(5, -1)
+[node name="Ship" type="Sprite2D" parent="CrashPath/Shipfollower"]
 texture = ExtResource("6_mgnvu")
-offset = Vector2(1, 0)

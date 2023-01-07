@@ -17,4 +17,13 @@ public partial class Gameplay : Node2D
             _tracking = ResourceLoader.Load<PackedScene>($"res://Scenes/States/{name}.tscn").Instantiate()
         );
     }
+
+    public T GetOnLocation<T>(Vector2 position)
+    {
+        if (_tracking is PlayCave playCave)
+        {
+            return playCave.GetOnLocation<T>(position);
+        }
+        throw new NotImplementedException();
+    }
 }

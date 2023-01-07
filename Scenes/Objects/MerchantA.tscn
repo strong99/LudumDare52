@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs4uio0mkh4eo"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Merchant.cs" id="1_yfl6m"]
+[ext_resource type="Texture2D" uid="uid://co5tp8k5nea5q" path="res://Assets/Objects/merchant.png" id="2_4c30o"]
+
+[node name="MerchantA" type="Node2D"]
+script = ExtResource("1_yfl6m")
+
+[node name="Tree" type="Sprite2D" parent="."]
+texture = ExtResource("2_4c30o")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

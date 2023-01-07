@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csfeogvg5ggi0"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Guard.cs" id="1_7iviw"]
+[ext_resource type="Texture2D" uid="uid://diqaiu4txqdva" path="res://Assets/Objects/guard.png" id="2_d0psy"]
+
+[node name="GuardA" type="Node2D"]
+script = ExtResource("1_7iviw")
+
+[node name="Tree" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_d0psy")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

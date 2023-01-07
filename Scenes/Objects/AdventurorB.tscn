@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bylfsuscdpysw"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Adventuror.cs" id="1_r6m6i"]
+[ext_resource type="Texture2D" uid="uid://bl02sicsggfmx" path="res://Assets/Objects/adventuror.png" id="2_auha4"]
+
+[node name="AdventurorB" type="Node2D"]
+script = ExtResource("1_r6m6i")
+
+[node name="Tree" type="Sprite2D" parent="."]
+texture = ExtResource("2_auha4")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

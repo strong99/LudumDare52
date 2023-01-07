@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccivt7g3537ye"]
+
+[ext_resource type="Texture2D" uid="uid://co5tp8k5nea5q" path="res://Assets/Objects/merchant.png" id="1_yp3e2"]
+
+[node name="MerchantB" type="Node2D"]
+
+[node name="Tree" type="Sprite2D" parent="."]
+texture = ExtResource("1_yp3e2")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://kjdqccfl1yee"]
+[gd_scene load_steps=3 format=3 uid="uid://kjdqccfl1yee"]
 
-[ext_resource type="Texture2D" uid="uid://dcjwi3fxon8ba" path="res://Assets/Cutscenes/tree.svg" id="1_37cql"]
+[ext_resource type="Script" path="res://Scenes/Objects/Player.cs" id="1_ls2th"]
+[ext_resource type="Texture2D" uid="uid://ba64634170qij" path="res://Assets/Objects/player.png" id="2_52wv3"]
 
 [node name="Player" type="Node2D"]
+script = ExtResource("1_ls2th")
 
 [node name="Tree" type="Sprite2D" parent="."]
-position = Vector2(7.62939e-06, -2)
-scale = Vector2(0.22381, 0.223459)
-texture = ExtResource("1_37cql")
-offset = Vector2(2, -159)
+scale = Vector2(1, 0.996)
+texture = ExtResource("2_52wv3")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

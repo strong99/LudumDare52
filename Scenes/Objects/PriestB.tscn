@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://de3b0qvpto63y"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/Priest.cs" id="1_rrp14"]
+[ext_resource type="Texture2D" uid="uid://cmumlhc76dqpd" path="res://Assets/Objects/priest.png" id="2_p4sfj"]
+
+[node name="PriestB" type="Node2D"]
+script = ExtResource("1_rrp14")
+
+[node name="Tree" type="Sprite2D" parent="."]
+texture = ExtResource("2_p4sfj")
+offset = Vector2(0, -27)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
