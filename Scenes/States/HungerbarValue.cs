@@ -8,7 +8,7 @@ public partial class HungerbarValue : RichTextLabel
     private Int32 _lastvalue;
     public override void _Process(Double delta)
     {
-        _player ??= GetNode<Player>("../../../../Player");
+        _player ??= GetNode<Player>("../../../../../Player");
 
         var p = (Int32)_player.HungerPoints;
         if (_lastvalue != p)

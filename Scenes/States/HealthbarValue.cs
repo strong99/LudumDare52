@@ -8,7 +8,7 @@ public partial class HealthbarValue : RichTextLabel
     private Int32 _lastHealth;
     public override void _Process(Double delta)
     {
-        _player ??= GetNode<Player>("../../../../Player");
+        _player ??= GetNode<Player>("../../../../../Player");
 
         var p = (Int32)_player.HealthPoints;
         if (_lastHealth != p)

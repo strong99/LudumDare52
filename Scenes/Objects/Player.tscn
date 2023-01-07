@@ -1,14 +1,90 @@
-[gd_scene load_steps=3 format=3 uid="uid://kjdqccfl1yee"]
+[gd_scene load_steps=12 format=3 uid="uid://kjdqccfl1yee"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/Player.cs" id="1_ls2th"]
-[ext_resource type="Texture2D" uid="uid://ba64634170qij" path="res://Assets/Objects/player.png" id="2_52wv3"]
+[ext_resource type="Texture2D" uid="uid://dufxpirq30di3" path="res://Scenes/Objects/ghost.png" id="2_uttnm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fcm7"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(600, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl3qt"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(400, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m83uk"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(500, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiskr"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(300, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmw8v"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(100, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ml6h"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(700, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpj0e"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(0, 0, 100, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_704oc"]
+atlas = ExtResource("2_uttnm")
+region = Rect2(200, 0, 100, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8auid"]
+animations = [{
+"frames": [SubResource("AtlasTexture_3fcm7")],
+"loop": true,
+"name": &"east_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_tl3qt")],
+"loop": true,
+"name": &"north_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_m83uk")],
+"loop": true,
+"name": &"northeast_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_jiskr")],
+"loop": true,
+"name": &"northwest_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_xmw8v")],
+"loop": true,
+"name": &"south_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_2ml6h")],
+"loop": true,
+"name": &"southeast_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_rpj0e")],
+"loop": true,
+"name": &"southwest_walk",
+"speed": 5.0
+}, {
+"frames": [SubResource("AtlasTexture_704oc")],
+"loop": true,
+"name": &"west_walk",
+"speed": 5.0
+}]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_ls2th")
 
-[node name="Tree" type="Sprite2D" parent="."]
-scale = Vector2(1, 0.996)
-texture = ExtResource("2_52wv3")
-offset = Vector2(0, -27)
+[node name="Skin" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -2)
+frames = SubResource("SpriteFrames_8auid")
+animation = &"southeast_walk"
+offset = Vector2(2, -93)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

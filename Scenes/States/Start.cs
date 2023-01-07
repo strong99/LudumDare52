@@ -25,7 +25,7 @@ public partial class Start : Node2D
     public void OnStartImmediatlyButtonPressed()
     {
         var scene = ResourceLoader.Load<PackedScene>("res://Scenes/States/Gameplay.tscn").Instantiate<Gameplay>();
-        scene.SetScene("Playcave");
+        scene.SetScene("Playcave2");
 
         var parent = GetParent();
         parent.AddChild(

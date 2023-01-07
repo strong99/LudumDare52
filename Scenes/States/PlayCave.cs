@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Xml.Schema;
 
 class Wave
 {
@@ -25,6 +26,8 @@ public partial class PlayCave : Node2D
     private Player _player;
     private Camera2D _camera;
     private Double _timePassed = 0;
+    private TileMap _tileMapFloor;
+    private TileMap _tileMapObjects;
 
     private HashSet<Character2D> _missions = new();
 
@@ -42,12 +45,26 @@ public partial class PlayCave : Node2D
 
     public override void _Ready()
     {
+        RenderingServer.SetDefaultClearColor(new Color(0,0,0,1));
 
         _player = ResourceLoader.Load<PackedScene>("res://Scenes/Objects/Player.tscn").Instantiate<Player>();
         _player.YSortEnabled = true;
+        _player.Position = GetNode<Node2D>("PlayerSpawn").Position;
+
+        var companion = ResourceLoader.Load<PackedScene>("res://Scenes/Objects/AdventurorA.tscn").Instantiate<Character2D>();
+        companion.YSortEnabled = true;
+        companion.Controlled = 999;
+        companion.Position = GetNode<Node2D>("PlayerSpawn").Position;
+
         _camera = GetNode<Camera2D>("Camera2D");
         _camera.Current = true;
         AddChild(_player);
+        AddChild(companion);
+
+        _tileMapFloor = GetNode<TileMap>("TileMap");
+        _tileMapObjects = GetNode<TileMap>("TileMap");
+
+        //(_tileMapObjects.Material as ShaderMaterial).SetShaderParameter("debug", false);
 
         base._Ready();
     }
@@ -57,14 +74,13 @@ public partial class PlayCave : Node2D
         if (inputEvent.IsActionPressed("Do"))
         {
             var mousePosition = GetGlobalMousePosition();
-            var tileMap = GetNode<TileMap>("TileMap");
-            var tileCoords = tileMap.LocalToMap(ToLocal(mousePosition));
-            var tileId = tileMap.GetCellSourceId(0, tileCoords);
-            var tile = tileMap.GetCellTileData(0, tileCoords);
-            if (tile?.GetNavigationPolygon(0) != null)
-            {
+            //var tileCoords = _tileMapFloor.LocalToMap(ToLocal(mousePosition));
+            //var tileId = _tileMapFloor.GetCellSourceId(0, tileCoords);
+            //var tile = _tileMapFloor.GetCellTileData(0, tileCoords);
+            //if (tile?.GetNavigationPolygon(0) != null)
+            //{
                 _player.GoTo(mousePosition);
-            }
+            //}
         }
         var tryControl = inputEvent.IsActionPressed("Control");
         var tryHarvest = inputEvent.IsActionPressed("Harvest");
@@ -106,8 +122,9 @@ public partial class PlayCave : Node2D
     public override void _Process(Double delta)
     {
         var previoustimePassed = _timePassed;
-        _timePassed += delta * 1000;
-        _camera.Position = _camera.Position.MoveToward(_player.Position, (Single)delta * 35f);
+        //_timePassed += delta * 1000;
+        //_camera.Position = _camera.Position.MoveToward(_player.Position, (Single)delta * 50f);
+        _camera.Position = _player.Position;
 
         TryNextSpawn(previoustimePassed, _timePassed);
 
@@ -115,6 +132,9 @@ public partial class PlayCave : Node2D
         {
             m._Process(delta);
         }
+
+        //var p = _player.Position;
+        //(_tileMapObjects.Material as ShaderMaterial).SetShaderParameter("position", p);
 
         base._Process(delta);
     }
@@ -213,18 +233,17 @@ public partial class PlayCave : Node2D
 
     public T GetOnLocation<T>(Vector2 position) where T : Node2D
     {
-        var tileMap = GetNode<TileMap>("TileMap");
-        var localCoords = tileMap.ToLocal(position);
-        var tileCoords = tileMap.LocalToMap(localCoords);
+        var localCoords = _tileMapObjects.ToLocal(position);
+        var tileCoords = _tileMapObjects.LocalToMap(localCoords);
 
-        foreach (var child in tileMap.GetChildren())
+        foreach (var child in _tileMapFloor.GetChildren())
         {
             if (child is T c)
             {
-                var tilePosition = tileMap.LocalToMap(c.Position);
-                var tileId = tileMap.GetCellSourceId(1, tilePosition);
+                var tilePosition = _tileMapObjects.LocalToMap(c.Position);
+                var tileId = _tileMapObjects.GetCellSourceId(0, tilePosition);
 
-                if (tileMap.LocalToMap(c.Position) == tileCoords)
+                if (_tileMapObjects.LocalToMap(c.Position) == tileCoords)
                 {
                     return c;
                 }
@@ -236,13 +255,12 @@ public partial class PlayCave : Node2D
 
     public void Construct(Character2D character2D, Vector2 position, String type)
     {
-        var tileMap = GetNode<TileMap>("TileMap");
-        var tileMapCoords = tileMap.ToLocal(position);
-        var tileCoords = tileMap.LocalToMap(tileMapCoords);
+        var tileMapCoords = _tileMapObjects.ToLocal(position);
+        var tileCoords = _tileMapObjects.LocalToMap(tileMapCoords);
 
         var c = ResourceLoader.Load<PackedScene>($"res://Scenes/Objects/{type}.tscn").Instantiate<Construction>();
-        c.Position = tileMap.MapToLocal(tileCoords);
-        tileMap.AddChild(c);
+        c.Position = _tileMapObjects.MapToLocal(tileCoords);
+        _tileMapObjects.AddChild(c);
     }
 
     public void Deconstruct(Character2D character2D, Vector2 position, String type)

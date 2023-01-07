@@ -8,7 +8,7 @@ public partial class WorldAlertnessbarValue : RichTextLabel
     private Int32 _lastLevel;
     public override void _Process(Double delta)
     {
-        _cave ??= GetNode<PlayCave>("../../../../");
+        _cave ??= GetNode<PlayCave>("../../../../../");
 
         var p = (Int32)_cave.Alertness;
         if (_lastLevel != p)

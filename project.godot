@@ -47,3 +47,4 @@ Control={
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0, 0.847059, 0.568627, 1)
